@@ -1,19 +1,17 @@
 package hellojpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
-public class Team extends BaseEntity{
-
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name="DIS_TYPE")
+public abstract class Item {
     @Id @GeneratedValue
-    @Column(name="TEAM_ID")
     private Long id;
+
     private String name;
 
+    private int price;
 
     public Long getId() {
         return id;
@@ -29,5 +27,13 @@ public class Team extends BaseEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
