@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.swing.plaf.metal.MetalMenuBarUI;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,13 +19,41 @@ public class JpaMain {
 
         try{
 
+            Member member = new Member();
+            member.setUsername("hello");
+
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            Member findMember = em.find(Member.class, member.getId());
+            System.out.println("findMember id = "+findMember.getId());
+
+
 
             tx.commit();
         }catch (Exception e){
            tx.rollback();
+           e.printStackTrace();
         }finally {
             em.close();
         }
         emf.close();
+
     }
+
+    private static void printEmployee(Employee employee){
+        System.out.println("employee = "+employee.getName());
+    }
+
+    private static void printEmployeeAndCompany(Employee employee){
+        String name = employee.getName();
+        System.out.println("name = "+name);
+
+        String companyName = employee.getCompany().getName();
+        System.out.println("company = "+companyName);
+
+    }
+
 }

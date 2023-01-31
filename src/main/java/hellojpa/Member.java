@@ -1,9 +1,6 @@
 package hellojpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Member extends BaseEntity{
@@ -13,6 +10,19 @@ public class Member extends BaseEntity{
     private Long id;
 
     private String username;
+
+
+    @ManyToOne
+    @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
+    private Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
     public Long getId() {
         return id;
